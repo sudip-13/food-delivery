@@ -3,12 +3,15 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const UserRouter = require('./routers/user')
 const AdminRouter = require('./routers/admin')
+const cookieParser = require('cookie-parser')
+
+const PORT = 3001;
 
 const app = express()
 app.use(express.json())
 app.use(cors())
+app.use(cookieParser());
 
-const PORT = 3001;
 
 mongoose.connect("mongodb+srv://Team-Louda:bsdk%40007@project-1.jd5yyyy.mongodb.net/")
   .then(console.log('DB connected'))

@@ -1,4 +1,7 @@
-const userModel = require('../models/Users')
+const { v4: uuidv4 } = require('uuid');
+const userModel = require('../models/Users');
+const {setUser} = require('../services/auth')
+
 
 async function handleUserSignup(req,res){
     const {first_name, last_name, email, student_code, department, phone_number, password, confirm_password} = req.body;
@@ -19,7 +22,16 @@ async function handleUserLogin(req,res){
   .then(user=>{
     if(user){
         if(user.password === password){
-            res.json("Success");
+            try{
+
+                const sessionId = uuidv4();
+                setUser(sessionId,user);
+                res.cookie('cookie-1',sessionId);
+                res.json(sessionId);
+            }
+            catch(error){
+                console.log('error!',error);
+            }
         }
         else{
             res.json("Incorrect password");

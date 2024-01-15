@@ -19,7 +19,7 @@ const adminSchema = new mongoose.Schema({
         type :Number,
         required : true,
         unique: true
-    }
+    },
 },{timestamps:true})
 const  AdminModel = mongoose.model("Admins",adminSchema)
 module.exports = AdminModel;
