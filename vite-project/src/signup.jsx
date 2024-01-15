@@ -1,69 +1,113 @@
-import React, { useState } from 'react';
-import axios from 'axios'
-import './signup.css'
+import React, { useState } from "react";
+import axios from "axios";
+import "./signup.css";
 
 function Signup() {
-  const [first_name,setfirst_name]=useState('');
-  const [last_name,setlast_name]=useState('');
-  const [student_code,setstudent_code]=useState('');
-  const [Department,setDepartment]=useState('');
-  const [Email,setEmail]=useState('');
-  const [Phone_Number,setPhone_Number]=useState('');
-  const [Password,setPassword]=useState('');
-  const [Confirm_Password,setConfirm_Password]=useState('');
+  const [first_name, setfirst_name] = useState("");
+  const [last_name, setlast_name] = useState("");
+  const [student_code, setstudent_code] = useState("");
+  const [department, setDepartment] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone_number, setPhone_Number] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm_password, setConfirm_Password] = useState("");
 
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3000/', { first_name, last_name, student_code,Department,Email,Phone_Number,Password,Confirm_Password})
-      console.log('User registered successfully')
+      await axios.post("http://localhost:3001/", {
+        first_name,
+        last_name,
+        email,
+        student_code,
+        department,
+        phone_number,
+        password,
+        confirm_password,
+      });
+      console.log("User registered successfully");
+    } catch (error) {
+      console.log("Error!", error);
     }
-
-    catch (error) {
-      console.log('Error!', error)
-    }
-  }
+  };
 
   return (
-    <div className="container">
+    <div className="container1">
       <div className="title">Registration</div>
       <div className="content">
         <form onSubmit={handleSubmit}>
           <div className="user-details">
             <div className="input-box">
               <span className="details">First Name</span>
-              <input type="text" placeholder="Enter your first name" required onChange={(e) => setfirst_name(e.target.value)}/>
+              <input
+                type="text"
+                placeholder="Enter your first name"
+                required
+                onChange={(e) => setfirst_name(e.target.value)}
+              />
             </div>
             <div className="input-box">
               <span className="details">Last Name</span>
-              <input type="text" placeholder="Enter your last name" required onChange={(e) => setlast_name(e.target.value)}/>
+              <input
+                type="text"
+                placeholder="Enter your last name"
+                required
+                onChange={(e) => setlast_name(e.target.value)}
+              />
             </div>
             <div className="input-box">
               <span className="details">Student Code</span>
-              <input type="text" placeholder="Enter your Student Code" required onChange={(e) => setstudent_code(e.target.value)}/>
+              <input
+                type="text"
+                placeholder="Enter your Student Code"
+                required
+                onChange={(e) => setstudent_code(e.target.value)}
+              />
             </div>
             <div className="input-box">
               <span className="details">Department</span>
-              <input type="text" placeholder="Enter your Department" required onChange={(e) => setDepartment(e.target.value)}/>
+              <input
+                type="text"
+                placeholder="Enter your Department"
+                required
+                onChange={(e) => setDepartment(e.target.value)}
+              />
             </div>
             <div className="input-box">
               <span className="details">Email</span>
-              <input type="text" placeholder="Enter your email" required onChange={(e) => setEmail(e.target.value)}/>
+              <input
+                type="text"
+                placeholder="Enter your email"
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
             <div className="input-box">
               <span className="details">Phone Number</span>
-              <input type="text" placeholder="Enter your number" required onChange={(e) => setPhone_Number(e.target.value)}/>
+              <input
+                type="text"
+                placeholder="Enter your number"
+                required
+                onChange={(e) => setPhone_Number(e.target.value)}
+              />
             </div>
             <div className="input-box">
               <span className="details">Password</span>
-              <input type="text" placeholder="Enter your password" required onChange={(e) => setPassword(e.target.value)}/>
+              <input
+                type="text"
+                placeholder="Enter your password"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
             <div className="input-box">
               <span className="details">Confirm Password</span>
               <input
                 type="text"
                 placeholder="Confirm your password"
-                required onChange={(e) => setConfirm_Password(e.target.value)}/>
+                required
+                onChange={(e) => setConfirm_Password(e.target.value)}
+              />
             </div>
           </div>
           <div className="gender-details">
