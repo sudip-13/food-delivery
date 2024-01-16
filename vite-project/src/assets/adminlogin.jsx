@@ -11,7 +11,7 @@ const AdminLogin = () => {
     e.preventDefault();
     try {
       let result = await axios.post("http://localhost:3001/admin/sendotp",{email})
-      console.log(result);
+      console.log(result.data);
     } catch (error) {
       console.log("Failed to sent otp", error);
     }
@@ -21,7 +21,7 @@ const AdminLogin = () => {
     e.preventDefault();
     try {
       let result = await axios.post("http://localhost:3001/admin/verifyotp",{otp})
-      console.log(result);
+      console.log(result.data);
     } catch (error) {
       console.log("Failed to sent otp", error);
     }

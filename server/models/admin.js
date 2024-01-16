@@ -20,6 +20,14 @@ const adminSchema = new mongoose.Schema({
         required : true,
         unique: true
     },
+    aadharCard:{
+        type:String,
+        required : true,
+    },
+    otp:{
+        required : false,
+        type : Number
+    }
 },{timestamps:true})
 const  AdminModel = mongoose.model("Admins",adminSchema)
 module.exports = AdminModel;

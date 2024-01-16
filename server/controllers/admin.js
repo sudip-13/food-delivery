@@ -1,25 +1,57 @@
-const AdminModel = require('../models/admin')
+const AdminModel = require("../models/admin");
 
 async function handleAdminSignup(req,res){
-    const {fullName,email,phoneNumber,aadharNumber,aadharCard} = req.body;
-    try{
-      console.log(`Received data: Full name-${fullName},Email-${email},Phone-${phoneNumber},Aadhar card-${aadharNumber}`)
-      const newAdmin = new AdminModel({fullName,email,phoneNumber,aadharNumber,aadharCard});
-      await newAdmin.save();
-      res.status(200).send({ message: 'Admin registered successfully' });
-    }
-    catch(error){
-      console.error(error)
-      res.status(500).send({ message: 'Internal server error' });
-    }
-}
+  const {fullName,email,phoneNumber,aadharNumber} = req.body;
+  const aadharCard=req.file.filename
+  try{
+    console.log(`Received data: Full name-${fullName},Email-${email},Phone-${phoneNumber},Aadhar Number-${aadharNumber}`)
+    const newAdmin = new AdminModel({fullName,email,phoneNumber,aadharNumber,aadharCard});
+    await newAdmin.save();
 
-async function generateOTP(req,res){
-  let otp = '';
-  for(let i = 0; i<=3; i++){
-    otp += Math.floor(Math.random()*10).toString();
+    res.status(200).send({ message: 'Admin registered successfully' });
   }
-  res.send(otp);
+  catch(error){
+    console.error(error)
+    res.status(500).send({ message: 'Internal server error' });
+  }
 }
 
-module.exports = {handleAdminSignup,generateOTP};
+async function generateOtp(req, res) {
+  const email = req.body;
+  let newotp = "";
+  for (let i = 0; i <= 3; i++) {
+    newotp += Math.floor(Math.random() * 10).toString();
+  }
+  try{
+    const admin = await AdminModel.findOneAndUpdate(
+      email,
+      { $set: { otp: newotp } },
+      { new: true }
+    );
+    if (admin) {
+      res.status(200).send({ message: "OTP generated successfully"});
+    } else {
+      res.status(404).send({ message: "No existing admin found" });
+    }
+  } catch(error){
+    console.error(error);
+    res.status(500).send({ message: "OTP generation failed" });
+  }
+}
+
+async function otpValidatation(req,res){
+  const otp = req.body;
+  try {
+    const admin = await AdminModel.findOne(otp);
+    if (admin) {
+      res.status(200).json('OTP validation success');
+    } else {
+      res.status(401).json('Invalid OTP');
+    }
+  } catch(error){
+    console.error(error);
+    res.status(502).send({ message: "OTP validation failed, Internal server error" });
+  }
+}
+
+module.exports = { handleAdminSignup, generateOtp,otpValidatation};

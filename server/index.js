@@ -2,21 +2,16 @@ const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose')
 const express = require('express')
 const cors = require('cors')
-const UserRouter = require('./routers/user')
 const AdminRouter = require('./routers/admin')
-// const dotenv = require('dotenv')
-// dotenv.config({ path: './config.env' });
-// const {restrictToLoggedinUserOnly} = require('./middlewares/auth')
+const UserRouter = require('./routers/user')
 
 const PORT = 3001;
-// const PORT = process.env.PORT;
-// const uri = process.env.db;
-
 
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended:false}));
 app.use(cors())
+app.use("/files",express.static("files"))
 app.use(cookieParser());
 
 
