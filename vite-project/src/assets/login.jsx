@@ -3,13 +3,14 @@ import axios from "axios";
 import "./login.css";
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3001/login", { email, password })
+      await axios
+        .post("http://localhost:3001/", { email, password })
         .then((result) => {
           if (result.data === "Success") {
             console.log("login success");
@@ -63,7 +64,7 @@ function Login() {
           <div className="form-link">
             <span>
               Don't have an account?{" "}
-              <a href="#" className="link signup-link">
+              <a href="signup" className="link signup-link">
                 Signup
               </a>
             </span>

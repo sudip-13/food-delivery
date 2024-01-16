@@ -1,16 +1,18 @@
 import {BrowserRouter, Routes,Route} from 'react-router-dom' 
-import Signup from './Signup.jsx'
-import Login from './login.jsx'
-import AdminRegistrationForm from './adminlogin.jsx'
+import Signup from './assets/signup.jsx'
+import Login from './assets/login.jsx'
+import Adminsignup from './assets/adminsignup.jsx'
+import AdminLogin from './assets/adminlogin.jsx'
 
 function App() {
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Signup />}></Route>
-        <Route path='/login' element={<Login />}></Route>
-        <Route path='/admin/registration' element={< AdminRegistrationForm />}></Route>
+        <Route path='/' element={<Login />}></Route>
+        <Route path='/signup' element={<Signup />}></Route>
+        <Route path='/admin/signup' element={< Adminsignup />}></Route>
+        <Route path='/admin/login' element={< AdminLogin />}></Route>
       </Routes>
     </BrowserRouter>
   )

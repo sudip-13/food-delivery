@@ -24,10 +24,13 @@ async function handleUserLogin(req,res){
         if(user.password === password){
             try{
 
-                const sessionId = uuidv4();
-                setUser(sessionId,user);
-                res.cookie('cookie-1',sessionId);
-                res.json(sessionId);
+                const token = setUser(user);
+                res.cookie('cookie-1',token,{domain: 'http://localhost:5173',
+                path: '/login', 
+                secure: false,
+                httpOnly: false,
+                sameSite: 'None',});
+                res.json('Success');
             }
             catch(error){
                 console.log('error!',error);

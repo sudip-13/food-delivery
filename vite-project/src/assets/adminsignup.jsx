@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './adminsignup.css'
 
 const AdminRegistrationForm = () => {
   const [fullName, setFullName] = useState('');

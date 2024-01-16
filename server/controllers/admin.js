@@ -14,6 +14,12 @@ async function handleAdminSignup(req,res){
     }
 }
 
+async function generateOTP(req,res){
+  let otp = '';
+  for(let i = 0; i<=3; i++){
+    otp += Math.floor(Math.random()*10).toString();
+  }
+  res.send(otp);
+}
 
-
-module.exports = {handleAdminSignup};
+module.exports = {handleAdminSignup,generateOTP};
