@@ -29,6 +29,7 @@ async function handleAdminSignup(req,res){
 
 async function generateOtp(req, res) {
   const email = req.body;
+  console.log(email);
   let newotp = "";
   for (let i = 0; i <= 3; i++) {
     newotp += Math.floor(Math.random() * 10).toString();
@@ -68,7 +69,7 @@ async function otpValidatation(req,res){
   try {
     const admin = await AdminModel.findOne(otp);
     if (admin) {
-      res.status(200).json('OTP validation success');
+      res.status(200).json('Success');
     } else {
       res.status(401).json('Invalid OTP');
     }

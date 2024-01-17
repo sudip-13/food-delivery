@@ -81,11 +81,6 @@ function Login() {
           </a>
         </div>
       </div>
-
-      {/* Signup Form */}
-      <div className="form signup">
-        {/* ... (similar structure as the login form) ... */}
-      </div>
     </section>
   );
 }

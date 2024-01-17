@@ -1,38 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./sendotp.css";
 
 function Sendotp() {
   const [email, setEmail] = useState("");
-  const otpgenerate = async (e) => {
-        e.preventDefault();
-        try {
-            await axios.post("http://localhost:3001/admin/sendotp"),
-            { email }.then((result) => {
-            if (result.data === "Otp Success") {
-                console.log("OTP generated successfully");
-            } else {
-                console.log("Sever error! OTP generation failed");
-            }
-            });
-        } catch (error) {
-        console.log("Failed to send otp!");
-        }
-    };
+  const [otp, setOtp] = useState("");
+  const navigate = useNavigate();
+
+  const handleSendOtp = async (e) => {
+    console.log("OTP sent to:", email);
+    e.preventDefault();
+    try {
+      let result = await axios.post("http://localhost:3001/admin/sendotp", {
+        email,
+      });
+      console.log(result.data);
+    } catch (error) {
+      console.log("Failed to sent otp", error);
+    }
+  };
+  const handleVerifyOtp = async (f) => {
+    f.preventDefault();
+    try {
+      let result = await axios.post("http://localhost:3001/admin/verify", {
+        otp,
+      });
+      if(result.data === 'Success'){
+        navigate("/admin/home")
+      }
+      else console.log('Redirection failed!')
+    } catch (error) {
+      console.log("Otp validation failed! Server error", error);
+    }
+  };
+
   return (
     <div className="form-container">
       <h2>ADMIN LOGIN</h2>
-      <form id="emailForm" onSubmit={otpgenerate}>
+      <form id="emailForm" onSubmit={handleSendOtp}>
         <input
+          required
+          placeholder="Enter your Email"
           type="email"
-          id="email"
-          name="email"
-          placeholder="Enter your email"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <a href="/admin/sendotp" className="submit">
+        <a href="/sendotp" className="submit">
           <button type="submit">Send otp</button>
         </a>
+      </form>
+      <br />
+      <h2>OTP VERIFICATION</h2>
+      <form id="otpForm" onSubmit={handleVerifyOtp}>
+        <input
+          type="text"
+          placeholder="Enter OTP"
+          id="otp"
+          name="otp"
+          required
+          value={otp}
+          onChange={(f) => setOtp(f.target.value)}
+        />
+        <button type="submit">Verify</button>
       </form>
     </div>
   );
