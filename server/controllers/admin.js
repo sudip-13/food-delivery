@@ -1,4 +1,15 @@
 const AdminModel = require("../models/admin");
+const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+  service:'gmail',
+  host: 'smtp.ethereal.email',
+  port: 587,
+  auth: {
+      user: "bikikutta25@gmail.com",
+      pass: "coaf nrcc kmic hnxy"
+  }
+});
 
 async function handleAdminSignup(req,res){
   const {fullName,email,phoneNumber,aadharNumber} = req.body;
@@ -28,8 +39,21 @@ async function generateOtp(req, res) {
       { $set: { otp: newotp } },
       { new: true }
     );
+    const mailOptions = {
+      from: 'bikikutta25@gmail.com',
+      to:email.email,
+      subject: 'OTP-Verification',
+      text: `Food delivery app verification OTP - ${newotp}`,
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
     if (admin) {
-      res.status(200).send({ message: "OTP generated successfully"});
+      res.status(200).send({ message: "Otp Success"});
     } else {
       res.status(404).send({ message: "No existing admin found" });
     }
@@ -53,5 +77,7 @@ async function otpValidatation(req,res){
     res.status(502).send({ message: "OTP validation failed, Internal server error" });
   }
 }
+
+
 
 module.exports = { handleAdminSignup, generateOtp,otpValidatation};
