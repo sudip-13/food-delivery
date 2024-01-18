@@ -3,7 +3,10 @@ const mongoose = require('mongoose')
 const express = require('express')
 const cors = require('cors')
 const AdminRouter = require('./routers/admin')
+const StaticRouter = require('./routers/ststic')
 const UserRouter = require('./routers/user')
+const {restrictToLoggedinUserOnly} = require('./middlewares/auth')
+
 
 const PORT = 3001;
 
@@ -20,7 +23,8 @@ mongoose.connect("mongodb+srv://Team-Louda:bsdk%40007@project-1.jd5yyyy.mongodb.
 .then(console.log('DB connected'))
 .catch((error)=>console.log('DB connection failed',error))
 
-app.use('/',UserRouter);
+app.use('/',StaticRouter);
+app.use('/user/',restrictToLoggedinUserOnly,UserRouter);
 app.use('/admin/',AdminRouter);
 
 app.listen(PORT, ()=>{

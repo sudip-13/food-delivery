@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './adminsignup.css'
+import '../styles/adminsignup.css'
 import axios from 'axios'
 
 const AdminRegistrationForm = () => {

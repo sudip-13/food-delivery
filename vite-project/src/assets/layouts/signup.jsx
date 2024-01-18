@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./signup.css";
+import { useNavigate } from "react-router-dom";
+import "../styles/signup.css";
 
 function Signup() {
   const [first_name, setfirst_name] = useState("");
@@ -11,6 +12,7 @@ function Signup() {
   const [phone_number, setPhone_Number] = useState("");
   const [password, setPassword] = useState("");
   const [confirm_password, setConfirm_Password] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +28,7 @@ function Signup() {
         confirm_password,
       });
       console.log("User registered successfully");
+      navigate('/')
     } catch (error) {
       console.log("Error!", error);
     }

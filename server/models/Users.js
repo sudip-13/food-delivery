@@ -35,6 +35,10 @@ const UserSchema = new mongoose.Schema({
     confirm_password:{
         type :String,
         required : true
+    },
+    otp:{
+        required : false,
+        type : Number
     }
 },{timestamps:true})
 

@@ -1,5 +1,6 @@
 const AdminModel = require("../models/admin");
 const nodemailer = require('nodemailer');
+const {setUser} = require('../services/auth')
 
 const transporter = nodemailer.createTransport({
   service:'gmail',
@@ -69,7 +70,9 @@ async function otpValidatation(req,res){
   try {
     const admin = await AdminModel.findOne(otp);
     if (admin) {
-      res.status(200).json('Success');
+      const token = setUser(admin);
+      res.cookie('cookie-1',token),
+      res.status(202).json(token);
     } else {
       res.status(401).json('Invalid OTP');
     }

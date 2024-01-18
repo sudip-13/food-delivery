@@ -1,5 +1,5 @@
 import React from 'react';
-import './adminhome.css';
+import '../styles/adminhome.css';
 function AdminHome() {
   return (
     <div>
@@ -25,5 +25,4 @@ function AdminHome() {
     </div>
   );
 }
-
 export default AdminHome;

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./login.css";
+import "../styles/login.css";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -12,8 +14,11 @@ function Login() {
       await axios
         .post("http://localhost:3001/", { email, password })
         .then((result) => {
-          if (result.data === "Success") {
+          if (result.status === 202) {
+            document.cookie=`userlogincookie=${result.data}`
             console.log("login success");
+            navigate('/user/home')
+            
           } else {
             console.log("Incorrect login credentials");
           }
@@ -50,17 +55,16 @@ function Login() {
               <i className="bx bx-hide eye-icon"></i>
             </div>
 
-            <div className="form-link">
-              <a href="#" className="forgot-pass">
-                Forgot password?
-              </a>
-            </div>
-
             <div className="field button-field">
               <button>Login</button>
             </div>
           </form>
 
+          <div className="form-link">
+            <a href="/forgotpassword" className="forgot-pass">
+              Forgot password?
+            </a>
+          </div>
           <div className="form-link">
             <span>
               Don't have an account?{" "}

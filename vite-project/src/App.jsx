@@ -1,9 +1,13 @@
 import {BrowserRouter, Routes,Route} from 'react-router-dom' 
-import Signup from './assets/signup.jsx'
-import Login from './assets/login.jsx'
-import Adminsignup from './assets/adminsignup.jsx'
-import Sendotp from './assets/sendotp.jsx'
-import AdminHome from './assets/adminhome.jsx'
+import Signup from './assets/layouts/signup.jsx'
+import Login from './assets/layouts/login.jsx'
+import Adminsignup from './assets/layouts/adminsignup.jsx'
+import Sendotp from './assets/layouts/sendotp.jsx'
+import AdminHome from './assets/layouts/adminhome.jsx'
+import ForgotPassword from './assets/layouts/forgotpass.jsx'
+import Home from './assets/layouts/home.jsx'
+import About from './assets/layouts/about.jsx'
+import Veg from './assets/layouts/veg.jsx'
 
 function App() {
 
@@ -12,6 +16,12 @@ function App() {
       <Routes>
         <Route path='/' element={<Login />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
+        <Route path='/forgotpassword' element={< ForgotPassword />}></Route>
+
+        <Route path='/user/home' element={<Home />}></Route>
+        <Route path='/user/about' element={<About />}></Route>
+        <Route path='/user/veg' element={<Veg />}></Route>
+        
         <Route path='/admin/signup' element={< Adminsignup />}></Route>
         <Route path='/admin/login' element={< Sendotp />}></Route>
         <Route path='/admin/home' element={< AdminHome />}></Route>
@@ -19,4 +29,4 @@ function App() {
     </BrowserRouter>
   )
 }
-export default App
+export default App;

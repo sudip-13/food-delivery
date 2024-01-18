@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./sendotp.css";
 
-function Sendotp() {
+function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
+  const [password, setNewPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSendOtp = async (e) => {
     console.log("OTP sent to:", email);
     e.preventDefault();
     try {
-      let result = await axios.post("http://localhost:3001/admin/sendotp", {
+      let result = await axios.post("http://localhost:3001/sendotp", {
         email,
       });
       console.log(result.data);
@@ -23,22 +23,23 @@ function Sendotp() {
   const handleVerifyOtp = async (f) => {
     f.preventDefault();
     try {
-      let result = await axios.post("http://localhost:3001/admin/verify", {
+      let result = await axios.post("http://localhost:3001/verify", {
         otp,
+        password,
       });
-      if(result.data === 'Success'){
-        navigate("/admin/home")
-      }
-      else console.log('Redirection failed!')
+      if (result.data === "Success") {
+        // navigate("/");
+        console.log("Password reset successfully");
+      } else console.log("Redirection failed!");
     } catch (error) {
       console.log("Otp validation failed! Server error", error);
     }
   };
 
   return (
-    <div className="form-container">
-      <h2>ADMIN LOGIN</h2>
-      <form id="emailForm" onSubmit={handleSendOtp}>
+    <div className="reset-pass">
+      <h2>Reset Password</h2>
+      <form id="email-Form" onSubmit={handleSendOtp}>
         <input
           required
           placeholder="Enter your Email"
@@ -52,7 +53,7 @@ function Sendotp() {
       </form>
       <br />
       <h2>OTP VERIFICATION</h2>
-      <form id="otpForm" onSubmit={handleVerifyOtp}>
+      <form id="otp-Form" onSubmit={handleVerifyOtp}>
         <input
           type="text"
           placeholder="Enter OTP"
@@ -62,9 +63,18 @@ function Sendotp() {
           value={otp}
           onChange={(f) => setOtp(f.target.value)}
         />
+        <input
+          type="text"
+          placeholder="Enter new password"
+          id="newpass"
+          required
+          value={password}
+          onChange={(f) => setNewPassword(f.target.value)}
+        />
         <button type="submit">Verify</button>
       </form>
     </div>
   );
 }
-export default Sendotp;
+
+export default ForgotPassword;
