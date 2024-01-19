@@ -6,6 +6,7 @@ import "../styles/sendotp.css";
 function Sendotp() {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
+  const [showOtpForm, setShowOtpForm] = useState(false);
   const navigate = useNavigate();
 
   const handleSendOtp = async (e) => {
@@ -16,6 +17,8 @@ function Sendotp() {
         email,
       });
       console.log(result.data);
+      setShowOtpForm(true);
+
     } catch (error) {
       console.log("Failed to sent otp", error);
     }
@@ -51,24 +54,27 @@ function Sendotp() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <a href="/sendotp" className="submit">
-          <button type="submit">Send otp</button>
-        </a>
+        <button type="submit">Send OTP</button>
       </form>
-      <br />
-      <h2>OTP VERIFICATION</h2>
-      <form id="otpForm" onSubmit={handleVerifyOtp}>
-        <input
-          type="text"
-          placeholder="Enter OTP"
-          id="otp"
-          name="otp"
-          required
-          value={otp}
-          onChange={(f) => setOtp(f.target.value)}
-        />
-        <button type="submit">Verify</button>
-      </form>
+
+      {showOtpForm && (
+        <>
+        <br />
+          <h2>OTP VERIFICATION</h2>
+          <form id="otpForm" onSubmit={handleVerifyOtp}>
+            <input
+              type="text"
+              placeholder="Enter OTP"
+              id="otp"
+              name="otp"
+              required
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+            />
+            <button type="submit">Verify</button>
+          </form>
+        </>
+      )}
     </div>
   );
 }

@@ -1,16 +1,9 @@
 const AdminModel = require("../models/admin");
-const nodemailer = require('nodemailer');
 const {setUser} = require('../services/auth')
+const {transporter} =require('../middlewares/senotp.js')
 
-const transporter = nodemailer.createTransport({
-  service:'gmail',
-  host: 'smtp.ethereal.email',
-  port: 587,
-  auth: {
-      user: "bikikutta25@gmail.com",
-      pass: "coaf nrcc kmic hnxy"
-  }
-});
+
+
 
 async function handleAdminSignup(req,res){
   const {fullName,email,phoneNumber,aadharNumber} = req.body;
@@ -42,6 +35,7 @@ async function generateOtp(req, res) {
       { new: true }
     );
     const mailOptions = {
+  
       from: 'bikikutta25@gmail.com',
       to:email.email,
       subject: 'OTP-Verification',

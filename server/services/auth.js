@@ -1,5 +1,9 @@
 const jwt = require('jsonwebtoken')
-const secret = 'team-louda'
+const dotenv =require('dotenv');
+dotenv.config({ path: '../config.env' });
+
+
+const secret = process.env.JWT_SECRET
 
 
 function setUser(user){

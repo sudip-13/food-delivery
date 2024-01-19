@@ -6,16 +6,18 @@ function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [password, setNewPassword] = useState("");
+  const [showOtpForm, setShowOtpForm] = useState(false);
   const navigate = useNavigate();
 
   const handleSendOtp = async (e) => {
     console.log("OTP sent to:", email);
     e.preventDefault();
     try {
-      let result = await axios.post("http://localhost:3001/sendotp", {
+      let result = await axios.post("http://localhost:3001/sendotp/", {
         email,
       });
       console.log(result.data);
+      setShowOtpForm(true);
     } catch (error) {
       console.log("Failed to sent otp", error);
     }
@@ -47,34 +49,36 @@ function ForgotPassword() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <a href="/sendotp" className="submit">
-          <button type="submit">Send otp</button>
-        </a>
+        <button type="submit">Send OTP</button>
       </form>
-      <br />
-      <h2>OTP VERIFICATION</h2>
-      <form id="otp-Form" onSubmit={handleVerifyOtp}>
-        <input
-          type="text"
-          placeholder="Enter OTP"
-          id="otp"
-          name="otp"
-          required
-          value={otp}
-          onChange={(f) => setOtp(f.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Enter new password"
-          id="newpass"
-          required
-          value={password}
-          onChange={(f) => setNewPassword(f.target.value)}
-        />
-        <button type="submit">Verify</button>
-      </form>
+
+      {showOtpForm && (
+        <>
+          <h2>OTP VERIFICATION</h2>
+          <form id="otp-Form" onSubmit={handleVerifyOtp}>
+            <input
+              type="text"
+              placeholder="Enter OTP"
+              id="otp"
+              name="otp"
+              required
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Enter new password"
+              id="newpass"
+              required
+              value={password}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <button type="submit">Verify</button>
+          </form>
+        </>
+      )}
     </div>
   );
 }
 
-export default ForgotPassword;
+export default ForgotPassword;
