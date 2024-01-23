@@ -1,7 +1,7 @@
 const AdminModel = require("../models/admin");
 const {setUser} = require('../services/auth')
 const {transporter} =require('../middlewares/senotp.js')
-
+const mongoose = require('mongoose')
 
 
 
