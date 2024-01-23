@@ -8,6 +8,7 @@ import ForgotPassword from './assets/layouts/forgotpass.jsx'
 import Home from './assets/layouts/home.jsx'
 import About from './assets/layouts/about.jsx'
 import Veg from './assets/layouts/veg.jsx'
+import Cart from './assets/layouts/cart.jsx'
 
 function App() {
 
@@ -21,7 +22,12 @@ function App() {
         <Route path='/user/home' element={<Home />}></Route>
         <Route path='/user/about' element={<About />}></Route>
         <Route path='/user/veg' element={<Veg />}></Route>
-        
+        <Route path='/user/cart' element={<Cart />}></Route>
+
+        {/* <Route path='/user/nonveg' element={<Veg />}></Route>
+        <Route path='/user/profile' element={<Veg />}></Route>
+        <Route path='/user/contact' element={<Veg />}></Route>
+        */}
         <Route path='/admin/signup' element={< Adminsignup />}></Route>
         <Route path='/admin/login' element={< Sendotp />}></Route>
         <Route path='/admin/home' element={< AdminHome />}></Route>

@@ -1,31 +1,40 @@
-import React from 'react';
-import '../styles/home.css'
+import React from "react";
+import "../styles/home.css";
+import { useNavigate } from "react-router-dom";
 
-const Home = () => {
+function Home() {
+  const navigate = useNavigate();
+
   return (
-    <div className="bgimage">
-      <div className="menu">
-        <div className="leftmenu">
+    <div className="bgimage_home">
+      <div className="menu_home">
+        <div className="leftmenu_home">
           <h4> FOOD </h4>
         </div>
 
-        <div className="rightmenu">
+        <div className="rightmenu_home">
           <ul>
-            <li id="firstlist">Home</li>
-            <li>About Us</li>
-            <li>Contact</li>
+            <li onClick={() => navigate("/user/profile")}>Profile</li>
+            <li onClick={() => navigate("/user/about")}>About Us</li>
+            <li onClick={() => navigate("/user/contact")}>Contact</li>
           </ul>
         </div>
       </div>
-      <div className="text">
-        <h4>DESIGN * DEVELOPMENT * BRANDING</h4>
+      <div className="text_home">
+        <h4>DELISIOUS - TASTEY - HIEGIENIC</h4>
         <h1> CREATIVE & EXPERIENCED </h1>
-        <h3> WE ARE THE ONE OF THE WORLD'S TOP CREATIVE DESIGN AGENCIES </h3>
-        <button className="btn"> VEG</button>
-        <button className="btn"> NON VEG</button>
+        <h3> WE ARE SERVING THE BEST FOOD WITHIN 20 MINUTES </h3>
+        <button className="btn_home" onClick={() => navigate("/user/veg")}>
+          {" "}
+          VEG
+        </button>
+        <button className="btn_home" onClick={() => navigate("/user/nonveg")}>
+          {" "}
+          NON VEG
+        </button>
       </div>
     </div>
   );
-};
+}
 
 export default Home;

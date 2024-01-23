@@ -9,11 +9,6 @@ const AdminRegistrationForm = () => {
   const [aadharNumber, setAadharNumber] = useState('');
   const [aadharCard, setAadharCard] = useState("");
 
-  /*const handleFileChange = (e) => {
-    const file = e.target.files;
-    setAadharCard(file);
-  };*/
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
