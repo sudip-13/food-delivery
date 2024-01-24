@@ -9,6 +9,7 @@ import Home from './assets/layouts/home.jsx'
 import About from './assets/layouts/about.jsx'
 import Veg from './assets/layouts/veg.jsx'
 import Cart from './assets/layouts/cart.jsx'
+import Contact from './assets/layouts/contact.jsx'
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path='/user/about' element={<About />}></Route>
         <Route path='/user/veg' element={<Veg />}></Route>
         <Route path='/user/cart' element={<Cart />}></Route>
+        <Route path='/user/contact' element={<Contact />}></Route>
 
         {/* <Route path='/user/nonveg' element={<Veg />}></Route>
         <Route path='/user/profile' element={<Veg />}></Route>

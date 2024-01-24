@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import Cart from "./cart.jsx";
 import "../styles/veg.css";
 import rice from "../images/rice.jpg";
@@ -31,11 +31,21 @@ const Veg = () => {
           </div>{" "}
           <div className="r_menu">
             <ul>
-              <li id="firstlist" onClick={() => navigate("/user/home")}>Home</li>
-              <li id="firstlist" onClick={() => navigate("/user/cart")}>Cart</li>
-              <li id="firstlist" onClick={() => navigate("/user/profile")}>Profile</li>
-              <li id="firstlist" onClick={() => navigate("/user/contact")}>Contact</li>
-              <li id="firstlist" onClick={() => navigate("/user/about")}>About Us</li>
+              <li id="firstlist" onClick={() => navigate("/user/home")}>
+                Home
+              </li>
+              <li id="firstlist" onClick={() => navigate("/user/cart")}>
+                Cart
+              </li>
+              <li id="firstlist" onClick={() => navigate("/user/profile")}>
+                Profile
+              </li>
+              <li id="firstlist" onClick={() => navigate("/user/contact")}>
+                Contact
+              </li>
+              <li id="firstlist" onClick={() => navigate("/user/about")}>
+                About Us
+              </li>
             </ul>
           </div>
         </div>
@@ -97,7 +107,15 @@ const Veg = () => {
                       <div className="veg_menu-text">
                         <h3>
                           <span>ROTI & PANNER</span>{" "}
-                          <button className="veg_btn" onClick={() =>addToCart({ name: "Roti & paneer", price: 60 })}> rs-60</button>
+                          <button
+                            className="veg_btn"
+                            onClick={() =>
+                              addToCart({ name: "Roti & paneer", price: 60 })
+                            }
+                          >
+                            {" "}
+                            rs-60
+                          </button>
                         </h3>
                         <p>3 piece roti with panner sabji</p>
                       </div>
@@ -110,7 +128,15 @@ const Veg = () => {
                         {" "}
                         <h3>
                           <span>BHAJA</span>{" "}
-                          <button className="veg_btn" onClick={() =>addToCart({ name: "Bhaja", price: 10 })}> rs-10</button>
+                          <button
+                            className="veg_btn"
+                            onClick={() =>
+                              addToCart({ name: "Bhaja", price: 10 })
+                            }
+                          >
+                            {" "}
+                            rs-10
+                          </button>
                         </h3>
                         <p>Bhaja</p>
                       </div>

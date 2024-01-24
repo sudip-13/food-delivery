@@ -4,7 +4,6 @@
     padding: 0px;
 }
 .bgimageveg{
-    /* background: url("../images/vegthali.jpg"); */
     background-color: white;
     background-size: 100%;
     width: 100%;
@@ -82,10 +81,10 @@
 .veg_btn:hover{
     background-color: white;
     color: black;
-    background: linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55)),url("vegthali1.jpg");
+    background: linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55))
 }
 /* coding with nick */
-.veg_menu {
+.veg_menu{
     position: relative;
     padding: 45px 0 15px 0;
 

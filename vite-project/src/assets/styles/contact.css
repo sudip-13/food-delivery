@@ -1,0 +1,34 @@
+.contact-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  flex-direction: column;
+}
+.text-contact{
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+  font-size: 40px;
+}
+.contact-form {
+  max-width: 400px;
+  width: 100%;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+}
+
+.company-location {
+  max-width: 400px;
+  width: 100%;
+}

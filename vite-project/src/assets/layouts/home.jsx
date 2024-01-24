@@ -16,6 +16,7 @@ function Home() {
         <div className="rightmenu_home">
           <ul>
             <li onClick={() => navigate("/user/profile")}>Profile</li>
+            <li onClick={() => navigate("/user/cart")}>Cart</li>
             <li onClick={() => navigate("/user/about")}>About Us</li>
             <li onClick={() => navigate("/user/contact")}>Contact</li>
           </ul>
