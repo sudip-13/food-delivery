@@ -6,7 +6,8 @@ function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className="bgimage_home">
+    <div className="home">
+    <div className="bg_image_home">
       <div className="menu_home">
         <div className="leftmenu_home">
           <h4> FOOD </h4>
@@ -33,6 +34,7 @@ function Home() {
           NON VEG
         </button>
       </div>
+    </div>
     </div>
   );
 }

@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-body {
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+.sign{
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
-  background-image: url('./assets/img1.jpg');
+  background-image: url('./assets/images/foodimg.jpg');
   background-size: 1000px 700px;
   column-gap: 30px;
 }
@@ -157,4 +157,4 @@ form .button input:hover {
   .container .content .category {
     flex-direction: column;
   }
-}
+} 

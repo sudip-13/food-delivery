@@ -1,246 +1,228 @@
-
-.bgimage {
-  background: url("vegthali.jpg");
-  background-color: white;
-  background-size: 100%;
-  width: 100%;
-  height: 140vh;
+.veg{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+.bgimageveg{
+    /* background: url("../images/vegthali.jpg"); */
+    background-color: white;
+    background-size: 100%;
+    width: 100%;
+    height: 140vh;
 }
 
-.mmenu {
-  width: 100%;
-  height: 100px;
-  background-color: rgba(0, 0, 0, 0.1);
+.m_menu{
+    width: 100%;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.1);
 }
-.lmenu {
-  width: 20%;
-  line-height: 100px;
-  float: left;
+.l_menu{
+    width: 20%;
+    line-height: 100Px;
+    float: left;
 }
-.lmenu h4 {
-  padding-left: 70px;
-  font-weight: bold;
-  color: rgb(0, 0, 0);
-  font-size: 22px;
-  font-family: "montserrat", sans-serif;
+.l_menu h4{
+    padding-left: 70px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    font-size: 22px;
 }
-.rmenu {
-  width: 60%;
-  height: 100px;
-  float: right;
+.r_menu{
+    width: 60%;
+    height: 100Px;
+    float: right;
 }
-.rmenu ul {
-  margin-left: 200px;
+.r_menu ul{
+    margin-left: 200px;
 }
-.rmenu ul li {
-  display: inline-block;
-  font-family: "montserrat", sans-serif;
-  list-style: none;
-  font-size: 15px;
-  color: rgb(0, 0, 0);
-  font-weight: bold;
-  line-height: 100px;
-  margin-left: 40px;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-.rmenu ul li:hover {
-  color: #000000;
-}
-#firstlist {
-  color: #00ccff;
-}
-.text {
-  width: 100%;
-  /* margin-top:185px ; */
-  text-transform: uppercase;
-  text-align: center;
-  height: 100px;
-
-  color: rgb(0, 0, 0);
-}
-.food {
-  margin-top: 185px;
-  text-align: center;
-}
-/* .text h4{
-    font-size: 14px;
-    font-family: 'open sans', sans-serif;
-}
-.text h1{
-    font-size: 62px;
-    font-family: 'montserrat', sans-serif ;
-    font-weight: 700px;
-    margin: 14px 0px;
-}
-.text h3{
+.r_menu ul li{
+    display: inline-block;
+    list-style: none;
     font-size: 15px;
-    font-family: 'open sans', sans-serif; */
-/* } */
-.btn {
-  background-color: rgba(255, 255, 255, 0.164);
-  color: white;
-  font-family: "montserrat", sans-serif;
-  border: none;
-  font-size: 15px;
-  font-weight: bold;
-  text-transform: uppercase;
-  line-height: 40px;
-  width: 150px;
-  margin-top: 25px;
-  border: 3px solid white;
-  cursor: pointer;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    line-height: 100px;
+    margin-left: 40px;
+    text-transform: uppercase;
+    cursor: pointer;
 }
-.btn:hover {
-  background-color: white;
-  color: black;
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.55),
-      rgba(255, 255, 255, 0.55)
-    ),
-    url("vegthali1.jpg");
+.r_menu ul li:hover{
+    color: #000000;
+}
+#firstlist{
+   color: #000000; 
+}
+.text{
+    width: 100%;
+    margin-top:185px ;
+    text-transform: uppercase;
+    text-align: center;
+    height: 100px;
+    
+    color: rgb(0, 0, 0);
+
+}
+.food{
+    margin-top: 185px;
+    text-align: center;
+}
+.veg_btn{
+    background-color: rgba(255,255,255, 0.164);
+    color: white;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 40px;
+    width: 150px;
+    margin-top: 25px;
+    border: 3px solid white;
+    cursor: pointer;
+}
+.veg_btn:hover{
+    background-color: white;
+    color: black;
+    background: linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55)),url("vegthali1.jpg");
 }
 /* coding with nick */
-.menu {
-  position: relative;
-  padding: 45px 0 15px 0;
+.veg_menu {
+    position: relative;
+    padding: 45px 0 15px 0;
+
 }
 
-.menu .menu-tab {
-  position: relative;
-  font-style: italic;
-  font-size: 22px;
+.veg_menu .veg_menu-tab {
+    position: relative;
+    font-style: italic;
+    font-size: 22px;
+
+
 }
 
-.menu .menu-tab img {
-  max-width: 100%;
-  border-radius: 15px;
+.veg_menu .veg_menu-tab img {
+    max-width: 100%;
+    border-radius: 15px;
 }
 
-.menu .menu-tab .nav.nav-pills .nav-link {
-  color: #ffffff;
-  background: #fbaf32;
-  border-radius: 5px;
-  margin: 0 5px;
+.veg_menu .veg_menu-tab .nav.nav-pills .nav-link {
+    color: #ffffff;
+    background: #fbaf32;
+    border-radius: 5px;
+    margin: 0 5px;
 }
 
-.menu .menu-tab .nav.nav-pills .nav-link:hover,
-.menu .menu-tab .nav.nav-pills .nav-link.active {
-  color: #ffffff;
-  background: #1c4384;
+.veg_menu .veg_menu-tab .nav.nav-pills .nav-link:hover,
+.veg_menu .veg_menu-tab .nav.nav-pills .nav-link.active {
+    color: #ffffff;
+    background: #1c4384;
 }
 
-.menu .menu-tab .tab-content {
-  padding: 30px 0 0 0;
-  background: transparent;
+.veg_menu .veg_menu-tab .tab-content {
+    padding: 30px 0 0 0;
+    background: transparent;
 }
 
-.menu .menu-tab .tab-content .container {
-  padding: 0;
-}
-
-.menu .menu-item {
-  position: relative;
-  margin-bottom: 30px;
-  display: flex;
-  align-items: center;
-}
-
-.menu .menu-img {
-  width: 80px;
-  margin-right: 20px;
-}
-
-.menu .menu-img img {
-  width: 100%;
-  border-radius: 100px;
-}
-
-.menu .menu-text {
-  width: calc(100% - 100px);
-}
-
-.menu .menu-text h3 {
-  position: relative;
-  display: block;
-  font-size: 22px;
-  font-weight: 700;
-}
-
-.menu .menu-text h3::after {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 0;
-  top: 13px;
-  left: 0;
-  border-top: 2px dotted #cccccc;
-  z-index: -1;
-}
-
-.menu .menu-text h3 span {
-  display: inline-block;
-  /* float: left; */
-  padding-right: 5px;
-  /* background: #ffffff; */
-}
-
-.menu .menu-text h3 strong {
-  display: inline-block;
-  padding-left: 5px;
-  color: #fbaf32;
-  background: #ffffff;
-}
-
-.menu .menu-text p {
-  position: relative;
-  margin: 5px 0 0 0;
-  float: left;
-  display: block;
-}
-
-@media (max-width: 575.98px) {
-  .menu .menu-text p,
-  .menu .menu-text h3,
-  .menu .menu-text h3 span,
-  .menu .menu-text h3 strong {
-    display: block;
-    float: none;
+.veg_menu .veg_menu-tab .tab-content .veg_container {
     padding: 0;
-    margin: 0;
-  }
-
-  .menu .menu-text h3 {
-    font-size: 18px;
-    margin-bottom: 0;
-  }
-
-  .menu .menu-text h3 span {
-    margin-bottom: 110px;
-  }
-
-  .menu .menu-text h3::after {
-    display: none;
-  }
 }
-.section-header {
-  text-align: center;
-  font-weight: bold;
-  font-size: 26px;
-}
-.btn {
-  color: #ffffff;
-  font-size: 20px;
-  text-align: center;
-  background-color: #31afaf;
-  border-bottom-right-radius: 0%;
 
-  background-size: 20px;
-  margin-left: auto;
+.veg_menu .veg_menu-item {
+    position: relative;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
 }
-.menu-text {
-  text-align: center;
+
+.veg_menu .veg_menu-img {
+    width: 80px;
+    margin-right: 20px;
 }
-span {
-  color: #000000;
+
+.veg_menu .veg_menu-img img {
+    width: 100%;
+    border-radius: 100px;
+}
+
+.veg_menu .veg_menu-text {
+    width: calc(100% - 100px);
+}
+
+.veg_menu .veg_menu-text h3 {
+    position: relative;
+    display: block;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.veg_menu .veg_menu-text h3::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 0;
+    top: 13px;
+    left: 0;
+    border-top: 2px dotted #cccccc;
+    z-index: -1;
+}
+
+.veg_menu .veg_menu-text h3 span {
+    display: inline-block;
+    /* float: left; */
+    padding-right: 5px;
+    /* background: #ffffff; */
+}
+
+.veg_menu .veg_menu-text h3 strong {
+    display: inline-block;
+    padding-left: 5px;
+    color: #fbaf32;
+    background: #ffffff;
+}
+
+.veg_menu .veg_menu-text p {
+    position: relative;
+    margin: 5px 0 0 0;
+    float: left;
+    display: block;
+}
+
+@media(max-width: 575.98px) {
+    .veg_menu .veg_menu-text p,
+    .veg_menu .veg_menu-text h3,
+    .veg_menu .veg_menu-text h3 span,
+    .veg_menu .veg_menu-text h3 strong {
+        display: block;
+        float: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .veg_menu .veg_menu-text h3 {
+        font-size: 18px;
+        margin-bottom: 0;
+    }
+    
+    .veg_menu .veg_menu-text h3 span {
+        margin-bottom: 110px;
+    }
+    
+    .veg_menu .veg_menu-text h3::after {
+        display: none;
+    }
+}
+.veg_btn{
+    color: #ffffff;
+    font-size: 20px;
+    text-align: center;
+    background-color: #31afaf;
+    border-bottom-right-radius: 0%;
+
+    background-size: 20px;
+    margin-left: auto;
+}
+.veg_menu-text{
+    text-align: center;
+}
+span{
+    color: #000000;
 }

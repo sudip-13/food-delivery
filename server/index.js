@@ -8,8 +8,9 @@ const UserRouter = require('./routers/user')
 const {restrictToLoggedinUserOnly} = require('./middlewares/auth')
 const dotenv =require('dotenv');
 dotenv.config({ path: './config.env' });
-const DB=process.env.db
 
+
+const DB=process.env.db
 const PORT = process.env.PORT;
 
 const app = express()

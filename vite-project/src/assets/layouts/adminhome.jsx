@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/adminhome.css';
 function AdminHome() {
   return (
+    <div className='adminhome'>
     <div>
       <header style={{ backgroundColor: '#333', color: '#fff', padding: '10px', textAlign: 'center' }}>
         <h1>Admin Dashboard</h1>
@@ -22,6 +23,7 @@ function AdminHome() {
       <footer style={{ backgroundColor: '#333', color: '#fff', padding: '10px', textAlign: 'center', position: 'fixed', bottom: '0', width: '100%' }}>
         &copy; 2024 Admin Dashboard
       </footer>
+    </div>
     </div>
   );
 }
