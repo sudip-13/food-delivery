@@ -1,5 +1,5 @@
 const { setUser } = require("../services/auth");
-const UserModel = require("../models/Users");
+const { UserModel, CartModel } = require("../models/Users");
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
@@ -52,8 +52,7 @@ async function handleUserLogin(req, res) {
       if (user.password === password) {
         try {
           const token = setUser(user);
-          res.cookie('cookie-1',token),
-          res.status(202).json(token);
+          res.cookie("cookie-1", token), res.status(202).json(token);
         } catch (error) {
           console.log("error!", error);
         }
@@ -104,14 +103,63 @@ async function generateOtp(req, res) {
 }
 
 async function otpValidatation(req, res) {
-  const { otp,password } = req.body;
-    const user = await UserModel.findOneAndUpdate({otp:otp},{ $set: { password:password ,confirm_password:password}},
-      { new: true });
+  const { otp, password } = req.body;
+  const user = await UserModel.findOneAndUpdate(
+    { otp: otp },
+    { $set: { password: password, confirm_password: password } },
+    { new: true }
+  );
   if (user) {
-    res.status(201).send('Success')
+    res.status(201).send("Success");
+  } else {
+    res.status(502).send("Otp validation failed");
   }
-  else{
-    res.status(502).send('Otp validation failed')
+}
+
+async function setCartItems(req, res) {
+  const { email, veg_thali, paneer_sabji, roti_paneer, bhaja } = req.body;
+  try {
+    const userCart = new CartModel({
+      email,
+      veg_thali,
+      paneer_sabji,
+      roti_paneer,
+      bhaja,
+    });
+    await userCart.save();
+    console.log(
+      `Received data: Email - ${email}, Veg thali - ${veg_thali},Paneer Sabji - ${paneer_sabji},Roti Paneer - ${roti_paneer},Bhaja - ${bhaja}`
+    );
+    res.status(200).send({ message: "Cart updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Cart updation failed" });
+  }
+}
+
+async function getCartItems(req, res) {
+  const { email } = req.body;
+  try {
+    const userCart = await CartModel.findOne({ email: email });
+    if (userCart) {
+      const keysToExtract = [
+        "veg_thali",
+        "paneer_sabji",
+        "roti_paneer",
+        "bhaja",
+      ];
+      const jsonResponse = {};
+      keysToExtract.forEach((key) => {
+        if (userCart[key] !== undefined) {
+          jsonResponse[key] = userCart[key];
+        }
+      });
+      res.status(200).send(jsonResponse);
+    } else {
+      res.status(404).send({msg : "No Cart items available for you"});
+    }
+  } catch (error) {
+    console.error("Retrieve operation failed !", error);
   }
 }
 
@@ -120,4 +168,6 @@ module.exports = {
   handleUserLogin,
   generateOtp,
   otpValidatation,
+  setCartItems,
+  getCartItems,
 };
