@@ -4,7 +4,7 @@ import '../styles/cart.css'
 const Cart = ({ cartItems, removeFromCart }) => {
   return (
     <div className="cart">
-      <h2>Shopping Cart</h2>
+      <h2>Food Cart</h2>
       {cartItems.length === 0 ? (
         <p>Your cart is empty</p>
       ) : (

@@ -1,3 +1,16 @@
+
+.contact{
+  margin: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100%;
+  padding: 90px 0;
+  background-size: 1200px 800px;
+  column-gap: 30px;
+  background-color: #b410eb;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .contact-container {
   display: flex;
   justify-content: center;
@@ -10,10 +23,14 @@
   padding: 20px;
   font-weight: bold;
   font-size: 40px;
+  color: aliceblue;
 }
 .contact-form {
+  background-color: grey;
+  color: rgb(244, 224, 8);
   max-width: 400px;
   width: 100%;
+
 }
 
 .contact-form label {
@@ -29,6 +46,8 @@
 }
 
 .company-location {
+  color: aliceblue;
   max-width: 400px;
   width: 100%;
+  text-shadow: black 4px;
 }

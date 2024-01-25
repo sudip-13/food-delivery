@@ -1,6 +1,11 @@
 const { setUser } = require("../services/auth");
 const { UserModel, CartModel } = require("../models/Users");
 const nodemailer = require("nodemailer");
+const jwt = require('jsonwebtoken');
+const dotenv = require("dotenv");
+dotenv.config({ path: "../config.env" });
+
+const secretKey = process.env.JWT_SECRET
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -163,6 +168,20 @@ async function getCartItems(req, res) {
   }
 }
 
+async function decodeJWT(req,res){
+  const token = req.body.token;
+  if (!token) {
+    return res.status(400).json({ error: 'Token not provided' });
+  }
+  try {
+    const decoded = jwt.verify(token, secretKey);
+    const email = decoded.email;
+    res.status(201).json(email);
+  } catch (error) {
+    res.status(401).json({ error: 'Invalid token' });
+  }
+}
+
 module.exports = {
   handleUserSignup,
   handleUserLogin,
@@ -170,4 +189,5 @@ module.exports = {
   otpValidatation,
   setCartItems,
   getCartItems,
+  decodeJWT
 };
