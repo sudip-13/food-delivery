@@ -3,22 +3,53 @@ import axios from "axios";
 import "../styles/login.css";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+const Login = (credentials) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  async function getCookieByName(name){
+    const cookies = document.cookie;
+    const cookieArray = cookies.split(';').map(cookie => cookie.trim());
+    const desiredCookie = cookieArray.find(cookie => cookie.startsWith(`${name}=`));
+    if (desiredCookie) {
+      const [, value] = desiredCookie.split('=');
+      return value;
+    } else {
+      return null;
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios
         .post("http://localhost:3001/", { email, password })
-        .then((result) => {
+        .then(async (result) => {
           if (result.status === 202) {
-            document.cookie=`userlogincookie=${result.data}`
-            console.log("login success");
-            navigate('/user/home')
-            
+            const token = result.data.token;
+            const cookies = getCookieByName('cookie-1');
+            console.log("login success",cookies);
+            try {
+              await axios
+                .get("http://localhost:3001/user/verifyjwt", {
+                  headers:{
+                    'cookie-1': cookies
+                  },
+                })
+                .then((details) => {
+                  if (details.status === 200) {
+                    navigate("/user/home");
+                  } else {
+                    console.log("Unauthorized or Invalid token");
+                    navigate("/");
+                  }
+                });
+            } catch (error) {
+              console.log(
+                "You dont have permission to access this routes ! please logged in first"
+              );
+            }
           } else {
             console.log("Incorrect login credentials");
           }
@@ -30,7 +61,6 @@ function Login() {
 
   return (
     <section className="container forms">
-      {/* Login Form */}
       <div className="form login">
         <div className="form-content">
           <header>Login</header>
@@ -76,8 +106,6 @@ function Login() {
         </div>
 
         <div className="line"></div>
-
-        {/* Media Options for Login */}
         <div className="media-options">
           <a href="admin/login" className="field facebook">
             <i className="bx bxl-facebook facebook-icon"></i>
@@ -87,6 +115,6 @@ function Login() {
       </div>
     </section>
   );
-}
+};
 
 export default Login;

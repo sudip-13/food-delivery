@@ -1,5 +1,4 @@
 const AdminModel = require("../models/admin");
-const {setUser} = require('../services/auth')
 const {transporter} =require('../middlewares/senotp.js')
 const mongoose = require('mongoose')
 
@@ -64,9 +63,10 @@ async function otpValidatation(req,res){
   try {
     const admin = await AdminModel.findOne(otp);
     if (admin) {
-      const token = setUser(admin);
-      res.cookie('cookie-1',token),
-      res.status(202).json(token);
+      // const token = setUser(admin);
+      // res.cookie('cookie-1',token),
+      // res.status(202).json(token);
+      res.status(202).send('Success');
     } else {
       res.status(401).json('Invalid OTP');
     }

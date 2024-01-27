@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const dotenv =require('dotenv');
 dotenv.config({ path: '../config.env' });
-// const DB = process.env.db;
+
 const transporter = nodemailer.createTransport({
     service:'gmail',
     host: 'smtp.ethereal.email',

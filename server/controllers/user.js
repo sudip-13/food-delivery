@@ -1,11 +1,13 @@
-const { setUser } = require("../services/auth");
 const { UserModel, CartModel } = require("../models/Users");
 const nodemailer = require("nodemailer");
 const jwt = require('jsonwebtoken');
+const {createAndSendToken} = require('../middlewares/auth')
 const dotenv = require("dotenv");
 dotenv.config({ path: "../config.env" });
 
 const secretKey = process.env.JWT_SECRET
+
+
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -16,6 +18,10 @@ const transporter = nodemailer.createTransport({
     pass: "coaf nrcc kmic hnxy",
   },
 });
+
+async function welcome(req,res){
+  res.status(200).json('welcome user');
+}
 
 async function handleUserSignup(req, res) {
   const {
@@ -43,7 +49,8 @@ async function handleUserSignup(req, res) {
       confirm_password,
     });
     await newUser.save();
-    res.status(200).send({ message: "User registered successfully" });
+    createAndSendToken(newUser, 201, res);
+    res.status(201).send({ message: "User registered successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal server error" });
@@ -56,16 +63,16 @@ async function handleUserLogin(req, res) {
     if (user) {
       if (user.password === password) {
         try {
-          const token = setUser(user);
-          res.cookie("cookie-1", token), res.status(202).json(token);
+          // res.status(202).json('Login Success');
+          createAndSendToken(user, 202, res);
         } catch (error) {
           console.log("error!", error);
         }
       } else {
-        res.json("Incorrect password");
+        res.status(404).json("Incorrect password");
       }
     } else {
-      res.json("No records found");
+      res.status(404).json("No records found");
     }
   });
 }
@@ -189,5 +196,6 @@ module.exports = {
   otpValidatation,
   setCartItems,
   getCartItems,
-  decodeJWT
+  decodeJWT,
+  welcome
 };

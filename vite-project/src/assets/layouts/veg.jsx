@@ -7,19 +7,18 @@ import panner from "../images/panner.jpg";
 import rotipaner from "../images/rotipaner.jpg";
 import bhaja1 from "../images/bhaja1.jpg";
 
+
 const Veg = () => {
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
 
   const addToCart = (item) => {
     setCartItems([...cartItems, item]);
+    let cart=([...cartItems,item])
+    sessionStorage.setItem("Cart_item",JSON.stringify(cart))
   };
 
-  const removeFromCart = (index) => {
-    const newCartItems = [...cartItems];
-    newCartItems.splice(index, 1);
-    setCartItems(newCartItems);
-  };
+  
 
   return (
     <div className="veg">
@@ -148,9 +147,12 @@ const Veg = () => {
           </div>
         </div>
       </div>
-      <Cart cartItems={cartItems} removeFromCart={removeFromCart} />
+      {/* {cartItems={cartItems} } */}
+      {/* {<Cart cartItems={cartItems} /> } */}
     </div>
+    
   );
+  
 };
 
 export default Veg;
