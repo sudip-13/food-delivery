@@ -20,7 +20,7 @@ const transporter = nodemailer.createTransport({
 });
 
 async function welcome(req,res){
-  res.status(200).json('welcome user');
+  res.status(200).json('welcome');
 }
 
 async function handleUserSignup(req, res) {
@@ -50,7 +50,6 @@ async function handleUserSignup(req, res) {
     });
     await newUser.save();
     createAndSendToken(newUser, 201, res);
-    res.status(201).send({ message: "User registered successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal server error" });

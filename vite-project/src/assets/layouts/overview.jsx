@@ -1,11 +1,38 @@
 import React, { useState,useEffect } from "react";
-import axios from "axios";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import getCookieValueByName from "./cookie.js";
 import "../styles/overview.css";
 import Cookies from "js-cookie";
 
 function Overview() {
   const [orderDetails, setOrderDetails] = useState('');
   const [total, setTotal] = useState(0);
+  const navigate = useNavigate();
+
+
+  async function validation() {
+    const cookies = await getCookieValueByName("cookie-1");
+    try {
+      await axios.get("http://localhost:3001/user/verifyjwt", {
+          headers: {
+            "cookie-1": cookies
+          },})
+        .then((result) => {
+          if (result.data == 'welcome') {
+            console.log('Welcome');
+          } else {
+            console.log("Unauthorized or Invalid token");
+            navigate("/");
+          }
+        });
+    } catch (error) {
+      console.error(
+        "You dont have permission to access this routes ! please logged in first"
+      );
+      navigate("/");
+    }
+  }
 
   const fetchCartAndShow = async (e) => {
     let email = null;
@@ -42,6 +69,7 @@ function Overview() {
     setTotal(totalPrice);
   };
   useEffect(() => {
+    validation();
     fetchCartAndShow();
   }, []);
 

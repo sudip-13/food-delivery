@@ -2,54 +2,44 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../styles/login.css";
 import { useNavigate } from "react-router-dom";
+import getCookieValueByName from "./cookie.js";
 
-const Login = (credentials) => {
+const Login =() => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-  async function getCookieByName(name){
-    const cookies = document.cookie;
-    const cookieArray = cookies.split(';').map(cookie => cookie.trim());
-    const desiredCookie = cookieArray.find(cookie => cookie.startsWith(`${name}=`));
-    if (desiredCookie) {
-      const [, value] = desiredCookie.split('=');
-      return value;
-    } else {
-      return null;
+  
+  async function validation() {
+    const cookies = await getCookieValueByName("cookie-1");
+    try {
+      await axios.get("http://localhost:3001/user/verifyjwt", {
+          headers: {
+            "cookie-1": cookies,
+          },})
+        .then((result) => {
+          if (result.status === 200) {
+            navigate("/user/home");
+          } else {
+            console.log("Unauthorized or Invalid token");
+            navigate("/");
+          }
+        });
+    } catch (error) {
+      console.log(
+        "You dont have permission to access this routes ! please logged in first"
+      );
     }
-  };
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios
-        .post("http://localhost:3001/", { email, password })
+      await axios.post("http://localhost:3001/", { email, password })
         .then(async (result) => {
           if (result.status === 202) {
             const token = result.data.token;
-            const cookies = getCookieByName('cookie-1');
-            console.log("login success",cookies);
-            try {
-              await axios
-                .get("http://localhost:3001/user/verifyjwt", {
-                  headers:{
-                    'cookie-1': cookies
-                  },
-                })
-                .then((details) => {
-                  if (details.status === 200) {
-                    navigate("/user/home");
-                  } else {
-                    console.log("Unauthorized or Invalid token");
-                    navigate("/");
-                  }
-                });
-            } catch (error) {
-              console.log(
-                "You dont have permission to access this routes ! please logged in first"
-              );
-            }
+            document.cookie = `cookie-1 = ${token}`;
+            navigate("/user/home");
           } else {
             console.log("Incorrect login credentials");
           }

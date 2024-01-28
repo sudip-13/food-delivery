@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import getCookieValueByName from "./cookie.js";
 import Cart from "./cart.jsx";
 import "../styles/veg.css";
 import fish from "../images/fish.jpg";
@@ -8,8 +10,31 @@ import chicken from "../images/chicken.jpg";
 import chicken_thali from "../images/chicken-thali.jpg";
 
 const NonVeg = () => {
-  const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([]);
+
+  async function validation() {
+    const cookies = await getCookieValueByName("cookie-1");
+    try {
+      await axios.get("http://localhost:3001/user/verifyjwt", {
+          headers: {
+            "cookie-1": cookies
+          },})
+        .then((result) => {
+          if (result.data == 'welcome') {
+            console.log('Welcome');
+          } else {
+            console.log("Unauthorized or Invalid token");
+            navigate("/");
+          }
+        });
+    } catch (error) {
+      console.error(
+        "You dont have permission to access this routes ! please logged in first"
+      );
+      navigate("/");
+    }
+  }
 
   const addToCart = (item) => {
     setCartItems([...cartItems, item]);
@@ -20,7 +45,11 @@ const NonVeg = () => {
     newCartItems.splice(index, 1);
     setCartItems(newCartItems);
   };
-
+  
+  useEffect(() => {
+    validation(); 
+  });
+  
   return (
     <div className="veg">
       <div className="bgimageveg">
