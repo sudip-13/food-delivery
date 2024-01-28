@@ -13,6 +13,7 @@ import Contact from './assets/layouts/contact.jsx'
 import NonVeg from './assets/layouts/nonveg.jsx'
 import Profile from './assets/layouts/profile.jsx'
 import Overview from './assets/layouts/overview.jsx'
+import Payment from './assets/layouts/payment.jsx'
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
         <Route path='/user/nonveg' element={<NonVeg />}></Route>
         <Route path='/user/profile' element={<Profile />}></Route>
         <Route path='/user/overview' element={<Overview />}></Route>
+        <Route path='/user/payment' element={<Payment />}></Route>
 
         <Route path='/admin/signup' element={< Adminsignup />}></Route>
         <Route path='/admin/login' element={< Sendotp />}></Route>

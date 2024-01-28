@@ -90,7 +90,7 @@ function Overview() {
         <h3>Total: ${total}</h3>
       </div>
       <div className="overview_btn">
-        <button>make payment</button>
+        <button onClick={() => navigate("/user/payment")}>make payment</button>
       </div>
     </div>
   );
