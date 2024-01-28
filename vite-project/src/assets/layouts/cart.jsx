@@ -16,7 +16,7 @@ const Cart = () => {
       await axios
         .get("http://localhost:3001/user/verifyjwt", {
           headers: {
-            "cookie-1": cookies
+            "cookie-1": cookies,
           },
         })
         .then((details) => {
@@ -57,6 +57,9 @@ const Cart = () => {
           ))}
         </ul>
       )}
+      <div className="cartbtn">
+        <button onClick={() => navigate("/user/overview")}>Next</button>
+      </div>
     </div>
   );
 };

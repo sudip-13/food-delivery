@@ -8,7 +8,7 @@
   .cart h2 {
     color: #333;
   }
-  
+
   .cart ul {
     list-style-type: none;
     padding: 0;
@@ -33,4 +33,3 @@
   .cart button:hover {
     background-color: #bd2130;
   }
-  
