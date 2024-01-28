@@ -6,9 +6,9 @@ import "../styles/overview.css";
 import Cookies from "js-cookie";
 
 function Overview() {
-  const [orderDetails, setOrderDetails] = useState('');
-  const [total, setTotal] = useState(0);
+ 
   const navigate = useNavigate();
+  const [jsonObject, setJsonObject] = useState('');
 
 
   async function validation() {
@@ -34,9 +34,9 @@ function Overview() {
     }
   }
 
-  const fetchCartAndShow = async (e) => {
+  const fetchOrderAndShow = async (e) => {
     let email = null;
-    const token = Cookies.get("userlogincookie");
+    const token = Cookies.get("cookie-1");
     try {
       await axios
         .post("http://localhost:3001/user/decode", { token })
@@ -45,12 +45,9 @@ function Overview() {
         });
       try {
         await axios
-          .post("http://localhost:3001/user/getcart", { email })
+          .post("http://localhost:3001/user/getorderdetails", { email })
           .then((result) => {
-            console.log(result.data);
-            const items = result.data;
-            setOrderDetails(items);
-            calculateTotal(items);
+            setJsonObject(result.data)
           });
       } catch (error) {
         console.error("Internal server error !", error);
@@ -60,40 +57,36 @@ function Overview() {
     }
   };
 
-  const calculateTotal = (orderDetails) => {
-    let totalPrice = 0;
-    Object.keys(orderDetails).forEach((item) => {
-      const pricePerItem = 10;
-      totalPrice += orderDetails[item] * pricePerItem;
-    });
-    setTotal(totalPrice);
-  };
   useEffect(() => {
     validation();
-    fetchCartAndShow();
+    fetchOrderAndShow();
   }, []);
 
-  return (
-    <div className="order-details-container">
-      <h2>Order Details</h2>
 
-      <div className="order-items">
-        {Object.keys(orderDetails).map((item) => (
-          <div key={item} className="order-item">
-            <span>{item}</span>
-            <span>Quantity: {orderDetails[item]}</span>
-            <span>Price: ${orderDetails[item] * 10}</span>
-          </div>
-        ))}
-      </div>
-      <div className="total">
-        <h3>Total: ${total}</h3>
-      </div>
-      <div className="overview_btn">
-        <button onClick={() => navigate("/user/payment")}>make payment</button>
-      </div>
+  // console.log(jsonObject)
+  const isOrderPlacedOrDelivered =
+  jsonObject.orderStatus === 'order placed' || jsonObject.orderStatus === 'order delivered';
+
+
+  return (
+    <div>
+      {isOrderPlacedOrDelivered ? (
+        <>
+          <h1>Order Details</h1>
+          <ul>
+            {jsonObject.item_name.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+          <p>Payment Status: {jsonObject.paymentStatus}</p>
+          <p>Order Status: {jsonObject.orderStatus}</p>
+        </>
+      ) : (
+        <p>Order status is not "order placed" or "order delivered".</p>
+      )}
     </div>
   );
-}
+};
+
 
 export default Overview;

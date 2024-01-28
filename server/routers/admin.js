@@ -20,4 +20,6 @@ AdminRouter.post('/sendotp',generateOtp)
 AdminRouter.post('/verify',otpValidatation)
 AdminRouter.post('/signup',upload.single('aadharCard'),handleAdminSignup)
 
+
+
 module.exports = AdminRouter;

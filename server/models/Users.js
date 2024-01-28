@@ -41,33 +41,39 @@ const UserSchema = new mongoose.Schema(
       required: false,
       type: Number,
     },
+    item_name: {
+      type: Array,
+    },
+    price: {
+      type: Array,
+    },
+    fullName:{
+      type:String
+    },
+    buildingNumber: {
+      type: Number,
+    },
+    roomNumber: {
+      type: Number,
+    },
+    mobileNumber:{
+      type:Number
+    },
+    orderStatus:{
+      type:String
+    },
+    totalPrice:{
+      type:Number
+    },
+    paymentStatus:{
+      type:String
+    }
   },
   { timestamps: true }
 );
 
-const CartSchema = new mongoose.Schema(
-  {
-    email: {
-      type: String,
-      required: true,
-    },
-    veg_thali: {
-      type: Number,
-    },
-    paneer_sabji: {
-      type: Number,
-    },
-    roti_paneer: {
-      type: Number,
-    },
-    bhaja: {
-      type: Number,
-    },
-  },
-  { timestamps: true }
-);
+
 
 const UserModel = mongoose.model("Users", UserSchema);
-const CartModel = mongoose.model("Cart", CartSchema);
 
-module.exports = { UserModel, CartModel };
+module.exports = { UserModel };

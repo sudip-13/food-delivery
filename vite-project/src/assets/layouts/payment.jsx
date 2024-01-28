@@ -7,6 +7,8 @@ import getCookieValueByName from "./cookie.js";
 
 const Payment = () => {
   const [selectedOption, setSelectedOption] = useState(null);
+  const [jsonObject, setJsonObject] = useState('');
+
   const navigate = useNavigate();
 
   async function validation() {
@@ -41,9 +43,63 @@ const Payment = () => {
     setSelectedOption(option);
   };
 
-  const handlePayment = () => {
-    console.log(`Processing payment using: ${selectedOption}`);
+
+
+
+  const handlePayment =async () => {
+    let email = null;
+    let paymentamount=null;
+    const token = await getCookieValueByName("cookie-1");
+    try {
+      await axios
+        .post("http://localhost:3001/user/decode", { token })
+        .then((result) => {
+          email = result.data;
+        });
+      try {
+        await axios
+          .post("http://localhost:3001/user/gettotalprice", { email })
+          .then((result) => {
+            const jsonObject=result.data
+            paymentamount=jsonObject.totalPrice
+            setJsonObject(jsonObject)
+          
+          });
+      } catch (error) {
+        console.error("Internal server error !", error);
+      }
+  
+        let paymentStatus=`${selectedOption}-${paymentamount}`
+        console.log(paymentStatus)
+        const orderStatus='order placed'
+        try{
+          await axios
+          .post("http://localhost:3001/user/makepayment",{email,paymentStatus,orderStatus})
+          .then((result)=>{
+            if(result.status===200){
+              console.log(result.data)
+            }
+            else{
+              console.log("Failed to make  payment")
+            }
+          })
+    
+        }
+        catch(error){
+          console.log(error)
+        }
+
+    } catch (error) {
+      console.error("Internal server error !", error);
+    }
+    
+    navigate('/user/orderplaced')
+  
   };
+
+  
+
+
 
   return (
     <div className="payment-container">

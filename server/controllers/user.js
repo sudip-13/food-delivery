@@ -128,21 +128,27 @@ async function otpValidatation(req, res) {
 }
 
 async function setCartItems(req, res) {
-  const { email, veg_thali, paneer_sabji, roti_paneer, bhaja } = req.body;
+  const { cartItems ,email,orderStatus} = req.body;
+  
+  const item_name = cartItems.map(item => item.name);
+  const price = cartItems.map(item => item.price);
+ 
+
+
   try {
-    const userCart = new CartModel({
-      email,
-      veg_thali,
-      paneer_sabji,
-      roti_paneer,
-      bhaja,
-    });
-    await userCart.save();
-    console.log(
-      `Received data: Email - ${email}, Veg thali - ${veg_thali},Paneer Sabji - ${paneer_sabji},Roti Paneer - ${roti_paneer},Bhaja - ${bhaja}`
+    const userCart = await UserModel.findOneAndUpdate(
+      { email: email },
+      { $set: { item_name: item_name, price: price,orderStatus:orderStatus } },
+      { new: true }
     );
-    res.status(200).send({ message: "Cart updated successfully" });
-  } catch (error) {
+
+        console.log(
+          `Received data: Email - ${email}, item name - ${item_name},price- ${price},status - ${orderStatus}`
+        );
+        res.status(200).send({ message: "Cart updated successfully" });
+      }
+  
+  catch (error) {
     console.error(error);
     res.status(500).send({ message: "Cart updation failed" });
   }
@@ -151,13 +157,12 @@ async function setCartItems(req, res) {
 async function getCartItems(req, res) {
   const { email } = req.body;
   try {
-    const userCart = await CartModel.findOne({ email: email });
+    const userCart = await UserModel.findOne({ email: email });
     if (userCart) {
       const keysToExtract = [
-        "veg_thali",
-        "paneer_sabji",
-        "roti_paneer",
-        "bhaja",
+        "item_name",
+        "price",
+        "orderStatus",
       ];
       const jsonResponse = {};
       keysToExtract.forEach((key) => {
@@ -176,6 +181,7 @@ async function getCartItems(req, res) {
 
 async function decodeJWT(req,res){
   const token = req.body.token;
+  console.log(token)
   if (!token) {
     return res.status(400).json({ error: 'Token not provided' });
   }
@@ -187,6 +193,158 @@ async function decodeJWT(req,res){
     res.status(401).json({ error: 'Invalid token' });
   }
 }
+async function setTotalPrice(req,res){
+  const {email,totalPrice}=req.body
+
+  try {
+    const userpayment = await UserModel.findOneAndUpdate(
+      { email: email },
+      { $set: { totalPrice: totalPrice} },
+      { new: true }
+    )
+    console.log(
+      `Received data: Email - ${email}, Total Price- ${totalPrice}`
+    );
+    res.status(200).send({ message: "Please fill up following details" });
+  } catch (error) {
+    console.log(error)
+    
+  }
+}
+
+
+async function confirmOrder(req,res){
+  const {email,buildingNumber,roomNumber,mobileNumber,orderStatus,fullName}=req.body
+  try {
+    const userOrder = await UserModel.findOneAndUpdate(
+      { email: email },
+      { $set: { buildingNumber: buildingNumber, roomNumber: roomNumber,orderStatus:orderStatus ,mobileNumber:mobileNumber,fullName:fullName} },
+      { new: true }
+    );
+
+        console.log(
+          `Received data: Email - ${email}, Building number- ${buildingNumber},Room Number- ${roomNumber},status - ${orderStatus},mobileNumber -${mobileNumber},  Full Name - ${fullName}`
+        );
+        res.status(200).send({ message: "Please make payment" });
+      }
+  
+  catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Order placement failed" });
+  }
+}
+
+
+
+async function getTotalPrice(req, res) {
+  const { email } = req.body;
+  try {
+    const userCart = await UserModel.findOne({ email: email });
+    if (userCart) {
+      const keysToExtract = [
+        "totalPrice",
+
+      ];
+      const jsonResponse = {};
+      keysToExtract.forEach((key) => {
+        if (userCart[key] !== undefined) {
+          jsonResponse[key] = userCart[key];
+        }
+      });
+      res.status(200).send(jsonResponse);
+    } else {
+      res.status(404).send({msg : "No total Priceavailable for you"});
+    }
+  } catch (error) {
+    console.error("Retrieve operation failed !", error);
+  }
+}
+
+async function makePayment(req, res){
+  const { email ,paymentStatus,orderStatus} = req.body;
+  try {
+    const userOrder = await UserModel.findOneAndUpdate(
+      { email: email },
+      { $set: { paymentStatus: paymentStatus,orderStatus:orderStatus} },
+      { new: true }
+    );
+
+        console.log(
+          `Received data: Email - ${email}, Payment Status- ${paymentStatus}, Order Status- ${orderStatus}`
+        );
+        res.status(200).send({ message: "order placed" });
+      }
+      catch(error){
+        console.log("failed to make payment")
+      }
+
+
+}
+
+async function getOrderDetails(req, res) {
+  const { email } = req.body;
+  try {
+    const userCart = await UserModel.findOne({ email: email });
+    if (userCart) {
+      const keysToExtract = [
+        "item_name",
+        "paymentStatus",
+        "orderStatus"
+
+      ];
+      const jsonResponse = {};
+      keysToExtract.forEach((key) => {
+        if (userCart[key] !== undefined) {
+          jsonResponse[key] = userCart[key];
+        }
+      });
+      res.status(200).send(jsonResponse);
+    } else {
+      res.status(404).send({msg : "No total Priceavailable for you"});
+    }
+  } catch (error) {
+    console.error("Retrieve operation failed !", error);
+  }
+}
+
+async function pendingOrderDetails(req, res) {
+  try {
+    const users = await UserModel.find({});
+
+    if (users.length > 0) {
+      const keysToExtract = [
+        "fullName",
+        "paymentStatus",
+        "mobileNumber",
+        "item_name",
+        "buildingNumber",
+        "roomNumber",
+        "orderStatus"
+      ];
+
+      const extractedData = users.map(user => {
+        const extractedUser = {};
+
+        keysToExtract.forEach(key => {
+          if (user[key] !== undefined) {
+            extractedUser[key] = user[key];
+          }
+        });
+
+        return extractedUser;
+      });
+
+      res.status(200).json(extractedData);
+    } else {
+      res.status(404).json({ msg: "No documents found" });
+    }
+  } catch (error) {
+    console.error("Retrieve operation failed!", error);
+    res.status(500).json({ msg: "Internal Server Error" });
+  }
+}
+
+
 
 module.exports = {
   handleUserSignup,
@@ -196,5 +354,11 @@ module.exports = {
   setCartItems,
   getCartItems,
   decodeJWT,
-  welcome
+  welcome,
+  setTotalPrice,
+  confirmOrder,
+  getTotalPrice,
+  makePayment,
+  getOrderDetails,
+  pendingOrderDetails
 };

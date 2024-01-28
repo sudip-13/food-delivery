@@ -12,8 +12,11 @@ import Cart from './assets/layouts/cart.jsx'
 import Contact from './assets/layouts/contact.jsx'
 import NonVeg from './assets/layouts/nonveg.jsx'
 import Profile from './assets/layouts/profile.jsx'
+import ConfirmOrderForm from'./assets/layouts/confirmorder.jsx'
 import Overview from './assets/layouts/overview.jsx'
 import Payment from './assets/layouts/payment.jsx'
+import OrderPlaced from './assets/layouts/orderplaced.jsx'
+import AdminOverview from './assets/layouts/adminoverview.jsx'
 
 function App() {
 
@@ -31,12 +34,16 @@ function App() {
         <Route path='/user/contact' element={<Contact />}></Route>
         <Route path='/user/nonveg' element={<NonVeg />}></Route>
         <Route path='/user/profile' element={<Profile />}></Route>
+        <Route path='/user/confirmorder' element={<ConfirmOrderForm />}></Route>
         <Route path='/user/overview' element={<Overview />}></Route>
         <Route path='/user/payment' element={<Payment />}></Route>
+        <Route path='/user/orderplaced' element={<OrderPlaced />}></Route>
+
 
         <Route path='/admin/signup' element={< Adminsignup />}></Route>
         <Route path='/admin/login' element={< Sendotp />}></Route>
         <Route path='/admin/home' element={< AdminHome />}></Route>
+        <Route path='/admin/overview' element={< AdminOverview />}></Route>
       </Routes>
     </BrowserRouter>
   )

@@ -48,6 +48,7 @@ function Home() {
             <li onClick={() => navigate("/user/cart")}>Cart</li>
             <li onClick={() => navigate("/user/about")}>About Us</li>
             <li onClick={() => navigate("/user/contact")}>Contact</li>
+            <li onClick={() => navigate("/user/overview")}>My Orders</li>
           </ul>
         </div>
       </div>

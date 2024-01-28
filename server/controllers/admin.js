@@ -1,4 +1,5 @@
 const AdminModel = require("../models/admin");
+
 const {transporter} =require('../middlewares/senotp.js')
 const mongoose = require('mongoose')
 
@@ -76,6 +77,35 @@ async function otpValidatation(req,res){
   }
 }
 
+
+async function pendingOrderDetails(req, res) {
+  try {
+    const userCart = await UserModel.findOne();
+    if (userCart) {
+      const keysToExtract = [
+        "fullName",
+        "paymentStatus",
+        "mobileNumber",
+        "item_name",
+        "buildingNumber",
+        "roomNumber",
+        "orderStatus"
+
+      ];
+      const jsonResponse = {};
+      keysToExtract.forEach((key) => {
+        if (userCart[key] !== undefined) {
+          jsonResponse[key] = userCart[key];
+        }
+      });
+      res.status(200).send(jsonResponse);
+    } else {
+      res.status(404).send({msg : "No total Priceavailable for you"});
+    }
+  } catch (error) {
+    console.error("Retrieve operation failed !", error);
+  }
+}
 
 
 module.exports = { handleAdminSignup, generateOtp,otpValidatation};
