@@ -59,7 +59,7 @@ function Overview() {
 
   useEffect(() => {
     validation();
-    fetchOrderAndShow();
+    setInterval(fetchOrderAndShow,1000)
   }, []);
 
 

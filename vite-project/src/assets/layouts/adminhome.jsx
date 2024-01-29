@@ -10,8 +10,8 @@ function AdminHome() {
 
       <nav style={{ backgroundColor: '#555', color: '#fff', padding: '10px', textAlign: 'center' }}>
         <a href="#">Home</a> |
-        <a href="#">Users</a> |
-        <a href="#">Settings</a> |
+        <a href="">Users</a> |
+        <a href="/admin/overview">Pending Order</a> |
         <a href="#">Logout</a>
       </nav>
 
